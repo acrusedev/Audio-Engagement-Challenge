@@ -29,4 +29,40 @@ Train dataset info:
         - Host popularity percentage: we have max value of >100% which cannot be,
         - Guest popularity percentage: same as above,
         - Number of ads: almost 104 ads in one episode seems impossible, we need to think what to do with this value
+
+
+
+"""
+
+"""
+    Train columns info
+
+    RangeIndex: 750000 entries, 0 to 749999
+    Data columns (total 12 columns):
+     #   Column                       Non-Null Count   Dtype  
+    ---  ------                       --------------   -----  
+     0   id                           750000 non-null  int64  
+     1   Podcast_Name                 750000 non-null  object 
+     2   Episode_Title                750000 non-null  object 
+     3   Episode_Length_minutes       662907 non-null  float64
+     4   Genre                        750000 non-null  object 
+     5   Host_Popularity_percentage   750000 non-null  float64
+     6   Publication_Day              750000 non-null  object 
+     7   Publication_Time             750000 non-null  object 
+     8   Guest_Popularity_percentage  603970 non-null  float64
+     9   Number_of_Ads                749999 non-null  float64
+     10  Episode_Sentiment            750000 non-null  object 
+     11  Listening_Time_minutes       750000 non-null  float64
+    dtypes: float64(5), int64(1), object(6)
+    memory usage: 68.7+ MB
+    None
+
+    There is a few rows with values missing in columns ['Episode length', 'Guest popularity', 'Number of ads']:
+        - it is not possible that the episode length was 0 - we need to somehow replace this values
+            i do not think, that we can remove these rows because we will be missing almost 100k rows of data, which will greatly effect our prediction model accuracy.
+
+        - on the other hand missing values in Guestr popularity could mean that there was no Guest present on the show? We could run some tests how the model will behave if we act like there was no Guest present on the show.
+            we can do it like this: we change all the missing values to 0, and add another column called (was_guest_present) and set it to false everywhere the value is 0
+
+        - 1 value missing seems to be missing, we could delete this row and not think much about replacing it at the beggining of the project. Later we can try replacing it for example with average value from all the cells in ads column
 """
